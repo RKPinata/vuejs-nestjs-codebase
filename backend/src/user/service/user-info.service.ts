@@ -13,28 +13,28 @@ export class UserService {
     private userInfoRepository: Repository<UserInfo>,
   ) {}
 
-  // async getUser(user: User): Promise<UserInfo> {
-  //   const userInfo = await this.userInfoRepository.findOne({
-  //     where: { id: user.user_info.id },
-  //   });
+  async getUser(user: User): Promise<UserInfo> {
+    const userInfo = await this.userInfoRepository.findOne({
+      where: { id: user.user_info.id },
+    });
 
-  //   if (!userInfo) {
-  //     throw new NotFoundException('User not found.');
-  //   }
-  //   return userInfo;
-  // }
+    if (!userInfo) {
+      throw new NotFoundException('User not found.');
+    }
+    return userInfo;
+  }
 
-  // async updateUserProfile(
-  //   user: User,
-  //   userInfoDto: UserInfoDto,
-  // ): Promise<userInfoData> {
-  //   const userInfo = await this.getUser(user);
-  //   userInfo.address = userInfoDto.address;
-  //   userInfo.petName = userInfoDto.petName;
-  //   userInfo.photo = userInfoDto.photo;
-  //   userInfo.modified_photo = userInfoDto.modified_photo;
+  async updateUserProfile(
+    user: User,
+    userInfoDto: UserInfoDto,
+  ): Promise<userInfoData> {
+    const userInfo = await this.getUser(user);
+    userInfo.address = userInfoDto.address;
+    userInfo.petName = userInfoDto.petName;
+    userInfo.photo = userInfoDto.photo;
+    userInfo.modified_photo = userInfoDto.modified_photo;
 
-  //   await userInfo.save();
-  //   return userInfo;
-  // }
+    await userInfo.save();
+    return userInfo;
+  }
 }

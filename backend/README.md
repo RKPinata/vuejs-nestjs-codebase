@@ -1,15 +1,54 @@
 ## Description
 
+## Tech stack
+- NestJS
+- TypeORM
+- PostgreSQL
+- Swagger
+- JWT
+- Docker
 
-## Installation (Run by docker)
+## Version
+- Nodejs v16.14.0
+- Yarn 1.22.18
+
+# Running the app on docker
+## Docker build & start
+
+```bash
+# docker env build
+$ docker-compose build
+
+# docker env start
+$ docker-compose up
+
+# remove docker container (services & networks)
+$ docker-compose down
 ```
-docker-compose up --build
+## Migration
+
+```bash
+# generate migration
+$ docker-compose run nestjs npm run typeorm:generate AnyNameYouLike
+
+# run migration
+$ docker-compose run nestjs npm run typeorm:run
 ```
 
+# Running the app without docker
 ## Installation
 
 ```bash
 $ npm install
+```
+## Migration
+
+```bash
+# generate migration
+$ npm run typeorm:generate AnyNameYouLike
+
+# run migration
+$ npm run typeorm:run
 ```
 
 ## Running the app
@@ -24,30 +63,3 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
