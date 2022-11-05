@@ -25,13 +25,11 @@ export class UserService {
     user: User,
     userInfoDto: UserInfoDto,
   ): Promise<userInfoData> {
-    const userInfo = await this.getUser(user);
-    userInfo.address = userInfoDto.address;
-    userInfo.petName = userInfoDto.petName;
-    userInfo.photo = userInfoDto.photo;
-    userInfo.modified_photo = userInfoDto.modified_photo;
+    const userInfo = await this.userInfoRepository.updateUserProfile(
+      user,
+      userInfoDto,
+    );
 
-    await userInfo.save();
     return userInfo;
   }
 }

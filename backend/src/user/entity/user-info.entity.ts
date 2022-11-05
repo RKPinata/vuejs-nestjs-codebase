@@ -9,11 +9,5 @@ export class UserInfo extends BaseEntity {
   petName: string;
 
   @Column({ type: 'varchar', nullable: true })
-  photo: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  modified_photo: string;
-
-  @Column({ type: 'varchar', nullable: true })
   address: string;
 }
