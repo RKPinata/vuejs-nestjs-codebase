@@ -4,19 +4,16 @@ import { User } from '../../auth/entity/user.entity';
 import { UserInfoDto } from '../dto/user-info.dto';
 import { UserInfo } from '../entity/user-info.entity';
 import { userInfoData } from '../interface/user-info.interface';
-import { Repository } from 'typeorm';
-
+import { UserInfoRepository } from '../repository/user-info.repository';
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserInfo)
-    private userInfoRepository: Repository<UserInfo>,
+    private userInfoRepository: UserInfoRepository,
   ) {}
 
   async getUser(user: User): Promise<UserInfo> {
-    const userInfo = await this.userInfoRepository.findOne({
-      where: { id: user.user_info.id },
-    });
+    const userInfo = await this.userInfoRepository.getUser(user);
 
     if (!userInfo) {
       throw new NotFoundException('User not found.');
