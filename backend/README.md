@@ -40,7 +40,7 @@ $ docker-compose down
 ## Issue
 
 ```
-If you get the error ERROR: relation "user_info" does not exist when posting the API, you need to run migration first
+If you get the error ERROR: relation "user_info" does not exist when posting the API, you need to create a new migration and run migration first
 ```
 
 ## Migration
