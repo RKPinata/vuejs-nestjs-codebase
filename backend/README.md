@@ -1,6 +1,6 @@
 ## Description
 
-A simple TODO application under Docker environment.
+A simple application under Docker environment.
 * NestJS
 * TypeORM
 * PostgreSQL
@@ -40,7 +40,13 @@ $ docker-compose down
 ## Issue
 
 ```
-If you get the error ERROR: relation "user_info" does not exist when posting the API, you need to create a new migration and run migration first
+If you get this error:
+
+The data directory was initialized by PostgreSQL version 14, which is not compatible with this version 15.1
+
+- Remove folder pgdata in this project
+- Remove volumes: docker volume rm <id>
+- Remove docker images of this project and build again
 ```
 
 ## Migration
@@ -53,24 +59,23 @@ $ docker-compose run nestjs npm run typeorm:generate AnyNameYouLike
 $ docker-compose run nestjs npm run typeorm:run
 ```
 
+## Swagger
+
+```
+http://localhost:3000/
+```
+
 # Running the app without docker
 ## Installation
 
+- Install postgres on your local
+
+- Install node_modules
 ```bash
 $ npm install
 ```
-## Migration
 
-```bash
-# generate migration
-$ npm run typeorm:generate AnyNameYouLike
-
-# run migration
-$ npm run typeorm:run
-```
-
-## Running the app
-
+- Run app
 ```bash
 # development
 $ npm run start
@@ -80,6 +85,16 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Migration
+
+```bash
+# generate migration
+$ npm run typeorm:generate AnyNameYouLike
+
+# run migration
+$ npm run typeorm:run
 ```
 
 ## API doc
