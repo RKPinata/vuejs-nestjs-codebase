@@ -3,14 +3,15 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Todo } from '../../todo/entity/todo.entity';
-import { UserInfo } from '../../user/entity/user-info.entity';
+import { Car } from '../../car/entity/car.entity';
+import { UserRoles } from './user-role.entity';
 
 @Entity()
 @Unique(['username'])
@@ -27,12 +28,25 @@ export class User extends BaseEntity {
   @Column()
   salt: string;
 
-  @OneToMany((type) => Todo, (todo) => todo.user, { eager: true })
-  todo: Todo[];
+  @Column({ type: 'varchar', nullable: true })
+  name: string;
 
-  @OneToOne((type) => UserInfo, { eager: true })
+  @Column({ type: 'varchar', nullable: true, unique: true })
+  email: string;
+
+  @ManyToMany((type) => UserRoles, { cascade: true })
+  @JoinTable({
+    name: 'user_roles_maps',
+    joinColumns: [{ name: 'user_id' }],
+    inverseJoinColumns: [{ name: 'role_id' }],
+  })
+  roles: UserRoles[];
+
+  @OneToMany((type) => Car, (car) => car.user, {
+    cascade: ['insert'],
+  })
   @JoinColumn()
-  user_info: UserInfo;
+  cars: Car[];
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
